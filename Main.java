@@ -44,7 +44,7 @@ public class Main
 			System.out.println("Ilosc bledow dla " + tabn[i-1] + " ramek: " + pom);
 		}
 		System.out.println();
-		/*
+		
 		System.out.println("Algorytm LRU:");
 		for(int i=1;i<=n;i++)
 		{
@@ -60,7 +60,7 @@ public class Main
 			System.out.println("Ilosc bledow dla " + tabn[i-1] + " ramek: " + pom);
 		}
 		System.out.println();
-		*/
+		
 		System.out.println("Algorytm RAND:");
 		for(int i=1;i<=n;i++)
 		{

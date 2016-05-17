@@ -145,4 +145,88 @@ public class Algorytmy
 		}
 		return bledy;
 	}
+	
+	public int LRU (int[] tab1, int il_ramek){
+		
+		int bledy=0;
+		long[][] tabr=new long [il_ramek][2];
+		
+		for (int i=0; i<il_ramek; i++){
+			tabr[i][0]=tab1[i];
+			tabr[i][1]=System.nanoTime();
+		}
+		
+		for (int i=il_ramek; i<tab1.length; i++){
+			boolean wystepuje=false;
+			int n=0;	
+			
+			while(n<il_ramek && wystepuje==false){
+				if(tabr[n][0]==tab1[i]){
+					tabr[n][1]=System.nanoTime();
+					wystepuje=true;
+				}
+				n++;
+			}
+			
+			if (wystepuje==false){
+				int minIndex=0;
+				long min=tabr[0][1];
+				
+				for (int x=1; x<il_ramek; x++){
+					if (tabr[x][1]<min){
+						min=tabr[x][1];
+						minIndex=1;
+					}
+				}
+				
+				tabr [minIndex][0]=tab1[i];
+				tabr[minIndex][1]=System.nanoTime();
+				bledy++;
+			}
+		}
+		
+		return bledy;
+	}
+	
+	public int aproksymowany_LRU(int[] tab1, int il_ramek){
+		int bledy=0;
+		int[][] tabr=new int[il_ramek][2];
+		
+		for (int i=0; i<il_ramek; i++){
+			tabr[i][0]=tab1[i];
+			tabr[i][1]=0;
+		}
+		
+		for (int i=il_ramek; i<tab1.length; i++){
+			boolean wystepuje=false;
+			int n=0;	
+			
+			while(n<il_ramek && wystepuje==false){
+				if(tabr[n][0]==tab1[i]){
+					tabr[n][1]=1;
+					wystepuje=true;
+				}
+				n++;
+			}
+			
+			if (wystepuje==false){
+				
+				while (tabr[0][1]==1){
+					int temp=tabr[0][0];
+					for (int x=0; x<il_ramek-1; x++){
+						tabr[x][0]=tabr[x+1][0];
+						tabr[x][1]=tabr[x+1][1];
+					}
+					tabr[il_ramek-1][0]=temp;
+					tabr[il_ramek-1][1]=0;
+				}
+				
+				tabr[0][0]=tab1[i];
+				tabr[0][1]=1;
+				bledy++;
+			}
+		}
+		
+		return bledy;
+	}
 }
